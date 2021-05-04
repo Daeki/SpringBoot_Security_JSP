@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.iu.s1.member.MemberMapper">
+
+	<insert id="setRole" parameterType="RoleVO" useGeneratedKeys="true" keyProperty="id">
+		insert into role values(#{id}, #{name})
+	</insert>
+
+	<select id="getIdCheck" parameterType="MemberVO" resultType="MemberVO">
+		select id from member where id=#{id}
+	</select>
+
+	<insert id="setInsert" parameterType="MemberVO">
+		insert into member values(#{username}, #{password}, #{name}, #{phone}, #{email}, #{enabled})
+	</insert>
+	
+	<insert id="setMemberRole" parameterType="java.util.Map">
+		insert into member_role values(#{username},(select id from role where rolename= #{role}))
+	</insert>
+
+	<insert id="setFileInsert" parameterType="MemberFileVO" useGeneratedKeys="true" keyProperty="num">
+		insert into memberFile values(#{num}, #{id}, #{fileName}, #{origineName})
+	</insert>
+	
+	<update id="setUpdate" parameterType="MemberVO">
+		update member set pw=#{pw}, name=#{name}, email=#{email}, phone=#{phone} where id=#{id}
+	</update>
+
+	<delete id="setDelete" parameterType="MemberVO">
+		delete member where id=#{id}
+	</delete>
+
+
+	<select id="getLogin" parameterType="String" resultMap="getLoginResult">
+<!-- 		select * from member where username=#{username} -->
+		SELECT M.* , R.*
+		FROM member M LEFT JOIN member_role MR
+		ON M.username = MR.username
+		INNER JOIN role R
+		ON MR.id = R.id
+		WHERE M.username=#{username}
+	</select>
+	
+	<resultMap type="MemberVO" id="getLoginResult">
+		<id property="username" column="username" />
+		<result property="password" column="password"/>
+		<result property="name" column="name"/>
+		<result property="email" column="email"/>
+		<result property="phone" column="phone"/>
+		<result property="enabled" column="enabled"/>
+		<collection property="roleVOs" javaType="List" ofType="RoleVO">
+			<result column="id" property="id"/>
+			<result column="roleName" property="roleName"/>
+		</collection>
+	</resultMap>
+	
+	<resultMap type="MemberFileVO" id="getFileResult">
+		<id property="num" column="num"/>
+		<result property="fileName" column="fileName"/>
+		<result property="origineName" column="origineName"/>
+	</resultMap>
+	
+	<select id="getFile" resultType="MemberFileVO" parameterType="MemberVO" >
+		select * from memberFile where id=#{id}
+	</select>
+	
+	<select id="getFileName" parameterType="MemberVO" resultType="MemberFileVO">
+		select fileName from memberFile where id=#{id}
+	</select>
+
+</mapper>

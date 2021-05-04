@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="/template/default :: head('Member Page')">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+</style>
+</head>
+<body>
+	<header th:insert="/template/default :: nav"></header>
+	<div class="container mt-2" >
+		<h2 class="mt-4">Member Page</h2>
+		
+		<div>
+			User ID	: <span sec:authentication="name"></span>
+		</div>
+		
+		<div>
+			Authentication(로그인)	: <span th:text="${#authentication}"></span>
+		</div>
+		<div>
+			Authorization(권한) <span th:text="${#authorization}"></span>
+		</div>
+		
+		<div>
+			User Eail : <span th:class="${#authentication='principal.email'}">class</span>
+		</div>
+			
+	</div>
+	<footer th:replace="/template/default :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="/template/default :: head(|${board}List|)">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<header th:insert="/template/default :: nav"></header>
+	<div class="container">
+		<h1 th:text="${board}">Board Write Form</h1>
+		
+		<div th:fragment="write">
+			<form id="frm" action="#" th:action="@{|${act}|}" method="post">
+				<input type="hidden" name="num" value="0" th:value="${detail.num}">
+				<div class="form-group">
+					<label for="writer">Writer:</label> 
+					<input type="text" class="form-control myCheck" id="writer" name="writer" 
+						th:value="${session.SPRING_SECURITY_CONTEXT.authentication.name}">
+						
+<!-- 						<input type="text" class="form-control myCheck" id="writer" name="writer" 
+						th:value="${#authentication.name}"> -->
+
+						
+						
+				</div>
+				<div class="form-group">
+					<label for="title">Title:</label> <input type="text"
+						class="form-control myCheck" id="title" name="title" th:value="${detail.title}">
+				</div>
+	
+				<div class="form-group">
+					<label for="contents">Contents:</label>
+					<textarea class="form-control myCheck" rows="5" id="contents" th:text="${detail.contents}"
+						name="contents"></textarea>
+				</div>
+	
+				<div>
+					<button type="submit" class="btn btn-outline-primary">WRITE</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+</body>
+</html>
