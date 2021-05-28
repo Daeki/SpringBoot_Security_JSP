@@ -59,7 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .successHandler(new MyLoginSuccessHandler())	- 로그인 성공 후 어떤 로직을 실행 하고 싶은 경우 사용
 				.defaultSuccessUrl("/member/memberLoginResult")
 //				.failureUrl("/member/memberLogin?error")
-				.failureHandler(new LoginFail())
+//				.failureHandler(new LoginFail())
 				.permitAll()									//- 이곳에서 하지 않으면 위에서 허용 해줘야 함
 				.and()
 			.rememberMe()

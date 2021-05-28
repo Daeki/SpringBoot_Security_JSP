@@ -20,9 +20,18 @@
 		<h1>authentication : ${sessionScope.SPRING_SECURITY_CONTEXT.authentication}</h1>
 	</div>
     
-
+	<div class="container">
+		<h1>Security Message</h1>
+		<sec:authorize access="isAuthenticated()">
+			<sec:authentication property="principal.username"/>
+		</sec:authorize>
+		<sec:authorize access="hasRole('ROLE_MEMBER')">
+			memer user
+			<c:import url="./template/layout_footer.jsp"></c:import>
+		</sec:authorize>
+	</div>
 
         
-<c:import url="./template/layout_footer.jsp"></c:import>
+
 </body>
 </html>

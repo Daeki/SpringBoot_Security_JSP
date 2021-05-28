@@ -23,6 +23,12 @@
 			<c:if test="${not empty LoginFailMessage}">
            <p class="error-message">ERROR????? ${LoginFailMessage}</p>
            </c:if>
+           
+           <h3>param.error : ${param.error==true}</h3>
+           <c:if test="${param.error}">
+           		<h3>Login Error !!!! </h3>
+           </c:if>
+           
         </div>
 		
 	    <div th:if="${param.error}">
