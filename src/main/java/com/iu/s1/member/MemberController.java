@@ -34,6 +34,9 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private MemberMapper memberMapper;
+	
 	
 	@RequestMapping("memberPage")
 	public void memberPage(HttpSession session)throws Exception{

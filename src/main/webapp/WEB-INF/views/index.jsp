@@ -25,8 +25,17 @@
 		<sec:authorize access="isAuthenticated()">
 			<sec:authentication property="principal.username"/>
 		</sec:authorize>
+		
+		<sec:authorize access="!isAuthenticated()">
+			Login 하세요
+		</sec:authorize>
+		
 		<sec:authorize access="hasRole('ROLE_MEMBER')">
-			memer user
+			member user
+			<c:import url="./template/layout_footer.jsp"></c:import>
+		</sec:authorize>
+				<sec:authorize access="hasRole('ROLE_ADMIN')">
+			Admin user
 			<c:import url="./template/layout_footer.jsp"></c:import>
 		</sec:authorize>
 	</div>

@@ -39,6 +39,8 @@ public class MemberService implements UserDetailsService {
 	
 
 	
+	
+	
 	public int memberJoin(MemberVO memberVO, MultipartFile avatar, HttpSession session)throws Exception{
 //		String fileName= fileManager.save("upload/member", avatar);	
 //		MemberFileVO memberFileVO = new MemberFileVO();
@@ -65,6 +67,9 @@ public class MemberService implements UserDetailsService {
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		
+		//카카오톡 조회
+		//토큰과 사용자 정보
 		
 		System.out.println(username);
 		MemberVO memberVO = memberMapper.getLogin(username);
