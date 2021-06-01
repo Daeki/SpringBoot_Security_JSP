@@ -38,6 +38,7 @@
 			Admin user
 			<c:import url="./template/layout_footer.jsp"></c:import>
 		</sec:authorize>
+		<a href="https://kauth.kakao.com/oauth/logout?client_id=ed171e198e97771d05a5ebb19eb845c3&logout_redirect_uri=http://localhost/member/memberLogout">로그아웃</a>
 	</div>
 
         

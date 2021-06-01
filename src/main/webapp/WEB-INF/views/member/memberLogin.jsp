@@ -60,7 +60,7 @@
 		</form>
 		
 	</div>
-    
+  <a href="/oauth2/authorization/kakao">카카오 로그인</a>  
 <c:import url="../template/layout_footer.jsp"></c:import>
 </body>
 </html>

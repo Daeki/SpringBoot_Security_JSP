@@ -1,5 +1,6 @@
 package com.iu.s1.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,12 +13,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
+import com.iu.s1.member.KakaoService;
 import com.iu.s1.security.LoginFail;
 
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+	@Autowired
+	private KakaoService kakaoService;
+	
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
@@ -49,6 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //				.antMatchers("/member/memberLogin?error", "/error").permitAll()
 				.antMatchers("/member/memberJoin").permitAll()
 				.antMatchers("/member/**").hasAnyRole("ADMIN", "MEMBER")
+				.antMatchers("/oauth2/**").permitAll()
 				.anyRequest().authenticated()
 				.and()
 			.formLogin()
@@ -72,7 +78,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	            .logoutSuccessUrl("/")
 	            .invalidateHttpSession(true)
 	            .deleteCookies("JSESSIONID")
-				.permitAll()									//- 이곳에서 하지 않으면 위에서 허용 해줘야 함
+				.permitAll()
+				.and()
+			.oauth2Login()
+	         	.userInfoEndpoint()
+	         		.userService(kakaoService)//- 이곳에서 하지 않으면 위에서 허용 해줘야 함
 			;
 			
 	}
